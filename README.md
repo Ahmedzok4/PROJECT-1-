@@ -73,7 +73,4 @@ Traffic flow includes:
 
 Eng. Mahmoud Abd EL-Ghani
 
----
-
-## Repository Structure
 
