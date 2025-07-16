@@ -1,0 +1,53 @@
+# Firewall Rules Summary
+
+## Rule 1: LAN to WAN
+- **Name**: lan-to-wan
+- **Source Interface**: port2 (LAN)
+- **Destination Interface**: port1 (WAN)
+- **Source Address**: all
+- **Destination Address**: all
+- **Action**: accept
+- **Schedule**: always
+- **Service**: ALL
+- **NAT**: enabled
+
+## Rule 2: LAN to DMZ
+- **Name**: lan-to-dmz
+- **Source Interface**: port2 (LAN)
+- **Destination Interface**: port3 (DMZ)
+- **Source Address**: all
+- **Destination Address**: all
+- **Action**: accept
+- **Schedule**: always
+- **Service**: HTTP, HTTPS
+- **NAT**: disabled
+
+## Rule 3: DMZ to LAN (Block)
+- **Name**: dmz-to-lan
+- **Source Interface**: port3 (DMZ)
+- **Destination Interface**: port2 (LAN)
+- **Source Address**: all
+- **Destination Address**: all
+- **Action**: deny
+- **Schedule**: always
+- **Service**: ALL
+
+
+
+
+# Policy Testing Results
+
+1. LAN to WAN:
+   - ✅ Internet access from port2 was successful.
+   - ✅ NAT was enabled; external communication confirmed.
+
+2. LAN to DMZ:
+   - ✅ HTTP and HTTPS access to DMZ servers from LAN worked as expected.
+
+3. DMZ to LAN:
+   - ✅ Access from DMZ to LAN was denied.
+   - ✅ Rule worked as a security barrier.
+
+4. DNAT (WEB-DNAT):
+   - 🔄 A VIP was created using IP 192.168.1.100 on port1.
+   - ✅ Incoming web traffic is redirected (external to internal).
